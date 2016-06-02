@@ -80,12 +80,12 @@ function redacto_options_page(  ) {
 
 
 
-add_action('wp', 'redacto_content');
+add_action('the_content', 'redacto_content');
 
-function redacto_content(){
-	$test = get_option('redacto_settings', 'Way to go, you broke it.');
+function redacto_content($content){
+	$test = get_option('redacto_settings', 'fWay to go, you broke');
 
-	print_r($test['redacto_text_field_0']);
+	//print_r($test['redacto_text_field_0']);
 	global $post;
 
 	$redact = $test['redacto_text_field_0'];
@@ -96,14 +96,12 @@ function redacto_content(){
 	$boxLength = 10*$wordLength;
 	$blackBox = '<span style="background-color: black;width:'. $boxLength .'px; display: inline-block; height: 16px;"></span>';
 
-	$pageContent = $post->post_content;
-	if (strpos ( $pageContent , $redact) == true){		
-		$pageContent = str_replace($redact, $blackBox, $pageContent);
-		$post->post_content = $pageContent;
-		//echo $pageContent;
+	if (strpos ( $content , $redact) == true){		
+		$content = str_replace($redact, $blackBox, $content);
+		return $content;
 	}
 	//print_r($post);
-		echo $redact;
+	//	echo $redact;
 }
 
 
