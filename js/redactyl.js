@@ -4,12 +4,15 @@ jQuery(document).ready(function(){
 counter = 1;
 
 	var newField;
-	newField = "<div class = field ><input type='text' name='redactyl_settings[redactyl_text_field_0]'>";
+	newField = "<tr><td><div class = field ><input type='text' name='redactyl_settings[redactyl_text_field_1]'>";
 	newField += "<a class='add' href='#'>+</a>";
-	newField += "<a class='delete' href='#'>-</a></div>";
+	newField += "<a class='delete' href='#'>-</a></div></td></tr>";
 
 
-jQuery('.add').bind('click', function(e){
+	//jQuery(newField).insertAfter('tr:first-child');
+
+	jQuery('.add').bind('click', function(e){
+
 	e.stopPropagation;
 	addCopy();
 	jQuery('.field').each(function(key, value){
@@ -26,8 +29,9 @@ jQuery('.add').bind('click', function(e){
 
 
 function addCopy(counter){
-	field = '<td>brrrrap</td>';
-	jQuery(newField).insertAfter('tr');
+	
+	var closestRow = jQuery('.add').closest('tr');
+	jQuery(newField).insertAfter(closestRow);
 
 
 

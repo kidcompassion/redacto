@@ -104,9 +104,13 @@ function redactyl_settings_section_callback(  ) {
 
 function redactyl_options_page(  ) { 
 
+	$checkit = get_option('redactyl_settings', 'fWay to go, you broke');
+	print_r($checkit);
+	
 	?>
 	<div class="redactyl">
 		<form action='options.php' method='post'>
+
 
 			<h2>Redactyl</h2>
 
