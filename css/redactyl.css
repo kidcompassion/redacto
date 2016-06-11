@@ -3,20 +3,3 @@
 }
 
 
-a.add {
-	background: green;
-	color: white;
-	font-size: 24px;
-	border-radius: 100%;
-	padding: 0px 10px;
-	text-decoration: none;
-}
-
-a.delete {
-	background: red;
-	color: white;
-	font-size: 24px;
-	border-radius: 100%;
-	padding: 0px 10px;
-	text-decoration: none;
-}
