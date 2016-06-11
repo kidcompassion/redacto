@@ -107,15 +107,37 @@ function redactyl_settings_section_callback(  ) {
 
 function redactyl_options_page(  ) { 
 
-	$checkit = get_option('redactyl_settings', 'fWay to go, you broke');
-	print_r($checkit);
-	$fieldVal =  $checkit['redactyl_text_field_1'];
+	$redacted_words = get_option('redactyl_settings', 'fWay to go, you broke');
+	;?>
+
+
+	<script>
+	
+	redacted_words = new Array();
+
+	</script>
+	<?php 
+	foreach ($redacted_words as $key => $value) {
+		echo $key;
+		echo '<br/>';
+		echo $value;?>
+		<script>
+
+			redacted_words["<?php echo $key;?>"] = "<?php echo $value;?>";
+		</script>
+
+<?php 
+	}
+
+
+
+	$redacted_word_2 =  $redacted_words['redactyl_text_field_1'];
 	//$fieldVal = 'test';
 
 	?>
 
 	<script>
-		var bling = "<?php echo $fieldVal;?>";
+		var bling = "<?php echo $redacted_word_2;?>";
 	</script>
 	
 	<div class="redactyl">

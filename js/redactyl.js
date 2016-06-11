@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 		
 var newField;	
 generate_unique_integer(newField);
-
+console.log(redacted_words);
 
 function generate_unique_integer(){	
 	length = jQuery('.form-table input[type="text"]').length+1;
