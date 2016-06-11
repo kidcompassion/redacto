@@ -28,6 +28,7 @@ along with Redactyl. If not, see http://www.gnu.org/licenses/old-licenses/gpl-2.
 
 defined( 'ABSPATH' ) or die( 'No touchy!' );
 
+
 function redactyl_add_js($hook){
 
 	wp_enqueue_script('redactyl', plugin_dir_url( __FILE__ ) . 'js/redactyl.js' );
@@ -39,6 +40,8 @@ function redactyl_add_css($hook){
 
 	wp_enqueue_style('redactyl-css', plugin_dir_url( __FILE__ ) . 'css/redactyl.css' );
 }
+
+
 
 add_action( 'admin_enqueue_scripts', 'redactyl_add_css' );
 
@@ -89,7 +92,7 @@ function redactyl_text_field_0_render(  ) {
 
 
 	<input type='text' name='redactyl_settings[redactyl_text_field_0]' value='<?php echo $options['redactyl_text_field_0']; ?>'>
-	<a class="add" href="#">+</a>
+	
 	<?php
 
 }
@@ -104,9 +107,20 @@ function redactyl_settings_section_callback(  ) {
 
 function redactyl_options_page(  ) { 
 
+	$checkit = get_option('redactyl_settings', 'fWay to go, you broke');
+	print_r($checkit);
+	$fieldVal =  $checkit['redactyl_text_field_1'];
+	//$fieldVal = 'test';
+
 	?>
+
+	<script>
+		var bling = "<?php echo $fieldVal;?>";
+	</script>
+	
 	<div class="redactyl">
 		<form action='options.php' method='post'>
+
 
 			<h2>Redactyl</h2>
 
