@@ -28,10 +28,33 @@ jQuery(document).ready(function(){
 		
 		//increment their value
 		jQuery.each(totalFields, function(key, value){
-			console.log(value);
-			jQuery(this).attr('name', 'redactyl_settings[redactyl_text_field_' + key + ']' );
+
+			//console.log(key);
+			//console.log(redactedWords);
+			console.log();
+			currentField = 'redactyl_text_field_' + parseInt(key);
+		//	console.log(redactedWords.currentField);
+			jQuery(this).attr('name', 'redactyl_settings['+ currentField +']' );
+
+			currentValue = redactedWords[Object.keys(redactedWords)[key]];
+			jQuery(this).val(currentValue);
+
+			//console.log(redactedWords[Object.keys(redactedWords)[key]]); //returns 'someVal'
+			
+			//console.log(jQuery(this).val());//hard coded value
 			
 		});
+
+
+
+
+		//increment their value
+		jQuery.each(redactedWords, function(key, value){
+
+			//console.log(key);
+			//console.log(value);
+		});
+
 		
 	}	
 
