@@ -1,44 +1,72 @@
 jQuery(document).ready(function(){
+
+	redactedWords;		
+	
+	newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_1]' value = 'ding'>";
+	newField += "<a class='delete' href='#'><span class='dashicons dashicons-dismiss'></span></a></td></tr>";
+	
+
+
+	var newField;	
+	var totalFields = Object.keys(redactedWords).length;
+
+	
+
+	//On page load, generate correct number of fields based on data in DB	
+	generate_fields_onload(redactedWords, newField);	
+	function generate_fields_onload(redactedWords, newField){
+		//find out how many options in the DB have been populated
+		totalWords = Object.keys(redactedWords).length;
 		
-var newField;	
-generate_unique_integer(newField);
-console.log(redacted_words);
+		//insert a new field for each populated option
+		for(i = 1; i<totalWords; i++){
+			jQuery(newField).insertAfter('tr:last-child');	
+		}
 
-function generate_unique_integer(){	
-	length = jQuery('.form-table input[type="text"]').length+1;
-	console.log(length);
-	for(i = 0; i<length; i++){
+		//find out how many fields are currently on the page
+		totalFields = jQuery('.form-table input[type=text]');
+		
+		//increment their value
+		jQuery.each(totalFields, function(key, value){
+			console.log(value);
+			jQuery(this).attr('name', 'redactyl_settings[redactyl_text_field_' + key + ']' );
+			
+		});
+		
+	}	
 
-		newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_"+ i +"]' value = "+bling+">";
-		newField += "<a class='delete' href='#'><span class='dashicons dashicons-dismiss'></span></a></td></tr>";
-		console.log(i);
+
+
+
+/*
+
+//should be generating correct name and value for each field
+function generate_unique_integer(redactedWords, newField){	
+
+
+//problem is length is incorrect
+
+	numberOfEntries = jQuery('.form-table input[type="text"]').length;
+	//console.log(numberOfEntries);
+	for(i = -1; i<numberOfEntries; i++){
+	
+newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_"+ i +"]' value = 'ding'>";
+newField += "<a class='delete' href='#'><span class='dashicons dashicons-dismiss'></span></a></td></tr>";
+
+		
 	}
+		console.log(newField);
+	console.log(redactedWords);
 
 }
 
-//	i=jQuery('.form-table input[type="text"]').length;	
+
+*/
 
 
 
 
-//alert(bling);
 
-
-
-console.log();
-
-
-//Increment the number in the name value on the fields so i can pass it to the database
-
-//So the problem is that i is always overwritten by its global value
-
-//on load, the loaded fields should already increment
-
-	
-generate_fields_onload();	
-function generate_fields_onload(newField){
-	jQuery(newField).insertAfter('tr:last-child');	
-}	
 
 jQuery('.form-table').append('<a class="add button button-secondary" href="#">+ Add another word</a>');
 
@@ -47,7 +75,7 @@ jQuery('.form-table').append('<a class="add button button-secondary" href="#">+ 
 	jQuery('.add').bind('click', function(e){
 		
 		e.stopPropagation;
-		addCopy();
+		add_new_field();
 		//console.log('bling');
 		jQuery('.field').each(function(key, value){
 			jQuery(this).addClass('field-'+ key);
@@ -67,16 +95,18 @@ jQuery('.form-table').append('<a class="add button button-secondary" href="#">+ 
 
 
 
-function addCopy(){
+function add_new_field(){
+	//find out how many fields are currently on the page
+	totalFields = jQuery('.form-table input[type=text]').length;
 
-	i++;
-	console.log(i);
-	console.log(newField);
 	//Get the current parent tr
 	var closestRow = jQuery('tr').last();
 	//Insert the new field after
 	jQuery(newField).insertAfter(closestRow);
-	generate_unique_integer(newField);
+
+	//Find the last field on the page and increment its value
+	jQuery('.form-table input[type=text]').last().attr('name', 'redactyl_settings[redactyl_text_field_' + totalFields + ']' );
+	totalFields++;
 
 
 }

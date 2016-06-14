@@ -113,32 +113,27 @@ function redactyl_options_page(  ) {
 
 	<script>
 	
-	redacted_words = new Array();
+	redactedWords = new Object();
 
 	</script>
 	<?php 
 	foreach ($redacted_words as $key => $value) {
 		echo $key;
 		echo '<br/>';
-		echo $value;?>
+		echo $value;
+		echo '<br/>';?>
 		<script>
 
-			redacted_words["<?php echo $key;?>"] = "<?php echo $value;?>";
+			redactedWords["<?php echo $key;?>"] = "<?php echo $value;?>";
 		</script>
 
 <?php 
 	}
 
 
-
-	$redacted_word_2 =  $redacted_words['redactyl_text_field_1'];
-	//$fieldVal = 'test';
-
 	?>
 
-	<script>
-		var bling = "<?php echo $redacted_word_2;?>";
-	</script>
+
 	
 	<div class="redactyl">
 		<form action='options.php' method='post'>
