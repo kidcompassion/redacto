@@ -212,11 +212,11 @@ function redactyl_title($title){
 		//Make the redaction bar longer that the word by ten px
 		$boxLength = 10*$wordLength;
 		//Generate the redaction bar and wrap the specified word
-		$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 16px;"></span>';
+		$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 30px;"></span>';
 
 		//If a redacted word exists, plug the bar in instead, and pass everything into the title var.
 		if (stristr( $title , $r) == true){	
-			$content = str_ireplace($r, $blackBox, $title);
+			$title = str_ireplace($r, $blackBox, $title);
 		}
 
 	endforeach;
