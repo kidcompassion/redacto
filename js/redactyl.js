@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 
 	redactedWords;		
 	
-	newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_1]' value = 'ding'>";
+	newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_1]'>";
 	newField += "<a class='delete' href='#'><span class='dashicons dashicons-dismiss'></span></a></td></tr>";
 	
 
@@ -29,63 +29,16 @@ jQuery(document).ready(function(){
 		//increment their value
 		jQuery.each(totalFields, function(key, value){
 
-			//console.log(key);
-			//console.log(redactedWords);
-			console.log();
-			currentField = 'redactyl_text_field_' + parseInt(key);
-		//	console.log(redactedWords.currentField);
-			jQuery(this).attr('name', 'redactyl_settings['+ currentField +']' );
-
-			currentValue = redactedWords[Object.keys(redactedWords)[key]];
-			jQuery(this).val(currentValue);
-
-			//console.log(redactedWords[Object.keys(redactedWords)[key]]); //returns 'someVal'
+		//DYnamically generate the correct name value to retrieve data from DB
+		currentField = 'redactyl_text_field_' + parseInt(key);
+		jQuery(this).attr('name', 'redactyl_settings['+ currentField +']' );
 			
-			//console.log(jQuery(this).val());//hard coded value
+		//Dynamically generate the correct value to place in text field on load.
+		currentValue = redactedWords[Object.keys(redactedWords)[key]];
+		jQuery(this).val(currentValue);
 			
-		});
-
-
-
-
-		//increment their value
-		jQuery.each(redactedWords, function(key, value){
-
-			//console.log(key);
-			//console.log(value);
-		});
-
-		
-	}	
-
-
-
-
-/*
-
-//should be generating correct name and value for each field
-function generate_unique_integer(redactedWords, newField){	
-
-
-//problem is length is incorrect
-
-	numberOfEntries = jQuery('.form-table input[type="text"]').length;
-	//console.log(numberOfEntries);
-	for(i = -1; i<numberOfEntries; i++){
-	
-newField = "<tr><td></td><td><input type='text' name='redactyl_settings[redactyl_text_field_"+ i +"]' value = 'ding'>";
-newField += "<a class='delete' href='#'><span class='dashicons dashicons-dismiss'></span></a></td></tr>";
-
-		
-	}
-		console.log(newField);
-	console.log(redactedWords);
-
-}
-
-
-*/
-
+	});		
+}	
 
 
 
@@ -103,19 +56,15 @@ jQuery('.form-table').append('<a class="add button button-secondary" href="#">+ 
 		jQuery('.field').each(function(key, value){
 			jQuery(this).addClass('field-'+ key);
 		});
-		jQuery('.delete').bind('click', function(e){
-			e.stopPropagation;
-			jQuery(this).closest('tr').remove();
-			console.log(jQuery(this));
-		});
+	
 	});
 
 	//remove field
+	jQuery('.delete').bind('click', function(e){
+			e.stopPropagation;
+			jQuery(this).closest('tr').remove();
 
-
-
-
-
+		});
 
 
 function add_new_field(){
