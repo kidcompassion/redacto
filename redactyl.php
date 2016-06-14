@@ -162,20 +162,32 @@ add_filter('the_content', 'redactyl_content');
 
 function redactyl_content($content){
 	//get selected word
-	$test = get_option('redactyl_settings', 'fWay to go, you broke');
-	$redact = $test['redactyl_text_field_0'];
+	
+	$redact;
+	$allWords = get_option('redactyl_settings', 'Way to go, you broke it');
+	//print_r($allWords);
+	$i = 0;
+	foreach($allWords as $word):
+		$redact[$i] = $word;
+		$i++;
+	endforeach;
 
-	//determine how long the bar should be and insert it
-	$wordLength = strlen($redact);
-	$boxLength = 10*$wordLength;
-	$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 16px;"></span>';
+	foreach($redact as $r):
+		//Get word length
+		$wordLength = strlen($r);
+		//Make the redaction bar longer that the word by ten px
+		$boxLength = 10*$wordLength;
+		//Generate the redaction bar and wrap the specified word
+		$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 16px;"></span>';
 
-	if (stristr( $content , $redact) == true){	
-		$content = str_ireplace($redact, $blackBox, $content);
-		return $content;
-	} else{
-		return $content;
-	}
+		//If a redacted word exists, plug the bar in instead, and pass everything into the content var.
+		if (stristr( $content , $r) == true){	
+			$content = str_ireplace($r, $blackBox, $content);
+		}
+
+	endforeach;
+	//Return the content var, whether it has redactions or no.
+	return $content;
 }
 
 
@@ -183,20 +195,34 @@ add_filter('the_title', 'redactyl_title');
 
 function redactyl_title($title){
 
-	$test = get_option('redactyl_settings', 'fWay to go, you broke');
-	$redact = $test['redactyl_text_field_0'];
-	//determine how long the bar should be and insert it
-	$wordLength = strlen($redact);
-	$boxLength = 10*$wordLength;
-	$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 24px;"></span>';
 
+	$redact;
+	$allWords = get_option('redactyl_settings', 'Way to go, you broke it');
+	//print_r($allWords);
+	
+	$i = 0;
+	foreach($allWords as $word):
+		$redact[$i] = $word;
+		$i++;
+	endforeach;
 
-	if (stristr( $title , $redact) == true){	
-		$title = str_ireplace($redact, $blackBox, $title);
-		return $title;
-	} else{
-		return $title;
-	}
+	foreach($redact as $r):
+		//Get word length
+		$wordLength = strlen($r);
+		//Make the redaction bar longer that the word by ten px
+		$boxLength = 10*$wordLength;
+		//Generate the redaction bar and wrap the specified word
+		$blackBox = '<span style="margin-left: 2px; background-color: black;width:'. $boxLength .'px; display: inline-block; height: 16px;"></span>';
+
+		//If a redacted word exists, plug the bar in instead, and pass everything into the title var.
+		if (stristr( $title , $r) == true){	
+			$content = str_ireplace($r, $blackBox, $title);
+		}
+
+	endforeach;
+	//Return the title var, whether it has redactions or no.
+	return $title;
+	
 }
 
 
